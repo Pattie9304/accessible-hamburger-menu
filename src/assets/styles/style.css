@@ -1,0 +1,146 @@
+:root {
+    --primary: #2563eb;
+    --dark: #1e293b;
+    --accent: #60a5fa;
+    --hamburger-color: white
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--dark);
+    color: white;
+}
+
+/* 1. Alineación del Botón */
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 2px solid transparent; /* Para evitar saltos al hacer foco */
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    position: relative; /* Importante para el posicionamiento absoluto interno */
+    padding: 0; /* Quita paddings por defecto */
+}
+
+/* Efecto hover/focus para feedback visual */
+.menu-toggle:hover,
+.menu-toggle:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    outline: none; /* Quitamos el default para usar box-shadow */
+    box-shadow: 0 0 0 3px var(--accent); /* Foco accesible y estético */
+}
+
+/* 2. El contenedor de las líneas */
+.hamburger-box {
+    width: 24px;
+    height: 18px; /* Altura total aproximada de las 3 líneas */
+    display: inline-block;
+    position: relative;
+}
+
+/* 3. Estilo base de las líneas (central, antes y después) */
+.hamburger-inner, 
+.hamburger-inner::before, 
+.hamburger-inner::after {
+    width: 24px;
+    height: 2px;
+    background-color: var(--hamburger-color);
+    position: absolute;
+    border-radius: 4px;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+/* Posicionamiento de las líneas */
+.hamburger-inner {
+    top: 50%;
+    transform: translate(-50%, -50%); /* Centra la línea del medio */
+}
+
+.hamburger-inner::before {
+    content: "";
+    top: -8px; /* Línea superior */
+}
+
+.hamburger-inner::after {
+    content: "";
+    bottom: -8px; /* Línea inferior */
+}
+
+/* 4. Corrección: Transformación a "X" (Usando una clase más específica) */
+.navbar .menu-toggle.is-active .hamburger-inner {
+    background-color: transparent !important; /* Fuerza la desaparición de la línea central */
+}
+
+.navbar .menu-toggle.is-active .hamburger-inner::before {
+    transform: translate(-50%, 8px) rotate(45deg); /* Baja y rota */
+}
+
+.navbar .menu-toggle.is-active .hamburger-inner::after {
+    transform: translate(-50% , -8px) rotate(-45deg); /* Sube y rota */
+}
+
+/* Reset de lista para quitar bullet points */
+.nav-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Opciones una debajo de otra */
+    gap: 1.5rem;
+}
+
+/* Estilos base para los enlaces del menú */
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: block; /* Para que el área seleccionable ocupe todo el ancho */
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    border-left: 4px solid transparent; /* Espacio reservado para el efecto */
+    transition: all 0.2s ease-in-out;
+}
+
+/* Estado Hover y Focus con Contraste Reforzado (WCAG AA Compliant) */
+.nav-menu a:hover,
+.nav-menu a:focus {
+    background-color: #1a3a8a; /* Un azul mucho más oscuro que el fondo original */
+    color: #ffffff; /* Mantenemos blanco puro para máximo contraste */
+    border-left: 4px solid #fde047; /* Cambiamos a un amarillo vibrante para el indicador visual */
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--accent); /* Un borde interno sutil para resaltar el foco */
+}
+
+/* Aseguramos que el contenedor de la lista no tenga padding lateral 
+   para que el efecto de fondo llegue a los bordes */
+.nav-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor del Menú con cambio de fondo */
+.nav-menu {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: var(--primary); /* Fondo azul brillante para contraste */
+    width: 250px;
+    padding: 2rem;
+    box-shadow: -5px 5px 15px rgba(0,0,0,0.2);
+}
+
+.nav-menu.is-active {
+    display: block; /* Se muestra al activar */
+}
+
